@@ -233,7 +233,7 @@ function hasCollidedWithSnake() {
   
   */
 
-  for ( var i  = snake.body.length - 1;i>0;i-- ) {
+  for ( var i  = 1;i<snake.body.length-1;i++ ) {
     var snakeSquare = snake.body[i];
 
     if(snake.head.row == snakeSquare.row && snake.head.column == snakeSquare.column){
