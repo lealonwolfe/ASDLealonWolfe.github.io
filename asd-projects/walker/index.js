@@ -10,10 +10,10 @@ function runProgram(){
   // Constant Variables
   var FRAME_RATE = 60;
   var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
-  const BOARD_WIDTH=$("#board").width
-  const BOARD_HEIGHT=$("#board").height
-  const WALKER_WIDTH=$("#walker").width
-  const WALKER_HEIGHT=$("#walker").height
+  const BOARD_WIDTH=$("#board").width()
+  const BOARD_HEIGHT=$("#board").height()
+  const WALKER_WIDTH=$("#walker").width()
+  const WALKER_HEIGHT=$("#walker").height()
   
   const KEY = {
     LEFT:37,
@@ -39,7 +39,7 @@ var walker = {
 }
 
   var walker2 = {
-    positionX:0,
+    positionX: BOARD_WIDTH - 50,
     positionY:0,
     speedX:0,
     speedY:0
@@ -162,15 +162,21 @@ function redrawBox(){
   $("#walker2").css("top", walker2.positionY)
 }
 
+
+
 function wallCollision(){
-
-if( walker.positionX > BOARD_WIDTH || walker.positionX < 0){
-  walker.speedX = walker.speed  * -1
-}
-
-if( walker.positionX > BOARD_HEIGHT || walker.positionX < 0){
-  walker.speedX = walker.speedX * -1
-}
+  if(walker.positionX > BOARD_WIDTH - WALKER_WIDTH||walker.positionX < 0){
+    walker.positionX -= walker.speedX
+  }
+  if(walker.positionY > BOARD_HEIGHT- WALKER_HEIGHT||walker.positionY < 0){
+    walker.positionY -= walker.speedY
+  }
+  if(walker2.positionX > BOARD_WIDTH - WALKER_WIDTH||walker2.positionX < 0){
+    walker2.positionX -= walker2.speedX
+  }
+  if(walker2.positionY > BOARD_HEIGHT- WALKER_HEIGHT||walker2.positionY < 0){
+    walker2.positionY -= walker2.speedY
+  }
 
 }
 
