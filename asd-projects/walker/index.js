@@ -35,14 +35,18 @@ var walker = {
   positionX:0,
   positionY:0,
   speedX:0,
-  speedY:0
+  speedY:0,
+  width: WALKER_WIDTH,
+  height: WALKER_HEIGHT
 }
 
   var walker2 = {
     positionX: BOARD_WIDTH - 50,
     positionY:0,
     speedX:0,
-    speedY:0
+    speedY:0,
+    width: WALKER_WIDTH,
+    height: WALKER_HEIGHT
 }
 
   // one-time setup
@@ -62,6 +66,7 @@ var walker = {
     repositionBox();
     redrawBox();
     wallCollision();
+    showResult(walkerCollide(walker,walker2));
   }
   
   /* 
@@ -180,8 +185,31 @@ function wallCollision(){
 
 }
 
+function walkerCollide(obj1,obj2){
+  obj1.leftX = obj1.positionX;
+  obj1.topY = obj1.positionY;
+  obj1.rightX = obj1.positionX + obj1.width;
+  obj1.bottomY = obj1.positionY + obj1.height;
+  // TODO: Do the same for obj2
+  obj2.leftX = obj2.positionX;
+  obj2.topY = obj2.positionY;
+  obj2.rightX = obj2.positionX + obj2.width;
+  obj2.bottomY = obj2.positionY + obj2.height;
 
+  if(
+      obj2.rightX > obj1.leftX &&
+      obj2.leftX < obj1.rightX &&
+      obj2.bottomY > obj1.topY &&
+      obj2.topY < obj1.bottomY 
+    ){
+      return true;
+    }else {return false;}
+
+}
   
+function showResult(result) {
+  if(result){$("h1").text('COLLISIONNN!!!');}else {$("h1").text('')}
+}
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
