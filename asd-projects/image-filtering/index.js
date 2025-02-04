@@ -21,10 +21,9 @@ function resetAndRender() {
 function applyAndRender() {
   // Multiple TODOs: Call your apply function(s) here
   applyFilter(reddify);
-  applyFilterNoBackground(decreaseBlue);
-  applyFilterNoBackground(increaseGreenByBlue);
-  applySmudge(smudgeFilter); 
-
+  //applyFilterNoBackground(decreaseBlue);
+  //applyFilterNoBackground(increaseGreenByBlue);
+  
   // do not change the below line of code
   render($("#display"), image);
 }
@@ -37,8 +36,8 @@ function applyAndRender() {
 function applyFilter(filterFunction) {
   for (var i = 0; i < image.length; i++) {
       for (var j = 0; j < image[i].length; j++) {
-          let rgbString = image[i][j];
-          let rgbNumbers = rgbStringToArray(rgbString);
+          var rgbString = image[i][j];
+          var rgbNumbers = rgbStringToArray(rgbString);
           filterFunction(rgbNumbers);
           rgbString = rgbArrayToString(rgbNumbers);
           image[i][j] = rgbString;
@@ -48,12 +47,12 @@ function applyFilter(filterFunction) {
 
 // TODO 7: Create the applyFilterNoBackground function
 function applyFilterNoBackground(filterFunction) {
-  let backgroundColor = image[0][0];
+  var backgroundColor = image[0][0];
   for (var i = 0; i < image.length; i++) {
       for (var j = 0; j < image[i].length; j++) {
-          let rgbString = image[i][j];
+          var rgbString = image[i][j];
           if (rgbString !== backgroundColor) {
-              let rgbNumbers = rgbStringToArray(rgbString);
+              var rgbNumbers = rgbStringToArray(rgbString);
               filterFunction(rgbNumbers);
               rgbString = rgbArrayToString(rgbNumbers);
               image[i][j] = rgbString;
