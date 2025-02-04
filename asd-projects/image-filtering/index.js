@@ -23,6 +23,7 @@ function applyAndRender() {
   applyFilter(reddify);
   //applyFilterNoBackground(decreaseBlue);
   //applyFilterNoBackground(increaseGreenByBlue);
+  //applySmudge(smudgeFilter);
   
   // do not change the below line of code
   render($("#display"), image);
@@ -80,3 +81,21 @@ function increaseGreenByBlue(rgbArray) {
   rgbArray[GREEN] = keepInBounds(rgbArray[GREEN] + rgbArray[BLUE]);
 }
 
+function applySmudge(filterFunction) {
+  for (var i = 0; i < image.length - 1; i++) {
+      for (var j = 0; j < image[i].length; j++) {
+          var rgbStringCurrent = image[i][j];
+          var rgbStringNeighbor = image[i + 1][j];
+          var rgbNumbersCurrent = rgbStringToArray(rgbStringCurrent);
+          var rgbNumbersNeighbor = rgbStringToArray(rgbStringNeighbor);
+          filterFunction(rgbNumbersCurrent, rgbNumbersNeighbor);
+          image[i][j] = rgbArrayToString(rgbNumbersCurrent);
+      }
+  }
+}
+
+function smudgeFilter(rgbArrayCurrent, rgbArrayNeighbor) {
+  for (var i = 0; i < 3; i++) {
+      rgbArrayCurrent[i] = keepInBounds((rgbArrayCurrent[i] + rgbArrayNeighbor[i]) / 2);
+  }
+}
